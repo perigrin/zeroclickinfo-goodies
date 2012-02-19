@@ -119,7 +119,7 @@ for my $goodie (@goodies) {
         my $answer_type;
 
         eval $code;
-
+        if ($@ && $opts{b} ) { warn $@ }
         print "\n";
 
         print $goodie. ': "' . $q . '"' . "\n" if $opts{b};
