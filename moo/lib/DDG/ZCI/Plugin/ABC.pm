@@ -1,5 +1,5 @@
 package DDG::ZCI::Plugin::ABC;
-use DDG::ZCI::Plugin;
+use DDG::ZCI::Sugar;
 
 sub handle {
     my ( $class, $input ) = @_;
