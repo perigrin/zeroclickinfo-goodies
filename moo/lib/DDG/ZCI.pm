@@ -4,12 +4,16 @@ use Module::Pluggable require => 1;
 
 has goodies => (
     is      => 'ro',
-    default => sub { [ sort shift->plugins ] },
+    default => sub {
+        [ map { $_->can('new') ? $_->new : $_ } sort shift->plugins ];
+    },
 );
 
 sub handle {
     my $self = shift;
-    my @results = grep { $_ } map { $_->handle( input @_ ) } @{ $self->goodies };
+    my @results = grep { $_ = $_->handle( input @_ ) } @{ $self->goodies };
+
+    # gotta figure out a reduce function
     return shift @results;
 }
 
