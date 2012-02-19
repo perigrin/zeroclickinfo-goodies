@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use FindBin qw($Bin);
 
-# use Getopt::Std;
 use Getopt::Long;
 use Pod::Usage;
 
@@ -13,15 +12,14 @@ my $goodie_filename  = 'goodie.pl';
 
 my %opts;
 
-# getopts( 'f:tab', \%opts );
+Getopt::Long::Configure ("bundling");
 
 GetOptions(
-    'file=s' => \$opts{f},
-    'test'   => \$opts{t},
-    'all'    => \$opts{a},
+    'file|f=s' => \$opts{f},
+    'test|t'   => \$opts{t},
+    'all|a'    => \$opts{a},
     'b'        => \$opts{b},
     'help|?'   => \$opts{help},
-    'man'      => \$opts{man},
 );
 
 pod2usage(1) if $opts{help};
