@@ -1,16 +1,13 @@
 package DDG::ZCI::Object;
 use strictures;
-our @ISA = qw(Moo);
+use Moo();
+use DDG::ZCI::Sugar ();
 
-use DDG::ZCI::Input;
-use DDG::ZCI::Output;
+our @ISA = qw(Moo);
 
 sub import {
     my $target = caller;
-    no strict "refs";
-    *{"${target}::output"} = sub { DDG::ZCI::Output->new(@_) };
-    *{"${target}::input"}  = sub { DDG::ZCI::Input->new(@_) };
-
+    DDG::ZCI::Sugar->import_into($target);
     goto Moo->can('import');
 }
 
