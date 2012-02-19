@@ -3,14 +3,28 @@
 use strict;
 use warnings;
 use FindBin qw($Bin);
-use Getopt::Std;
+
+# use Getopt::Std;
+use Getopt::Long;
+use Pod::Usage;
 
 my $queries_filename = 'queries.txt';
 my $goodie_filename  = 'goodie.pl';
 
 my %opts;
 
-getopts( 'f:tab', \%opts );
+# getopts( 'f:tab', \%opts );
+
+GetOptions(
+    'file=s' => \$opts{f},
+    'test'   => \$opts{t},
+    'all'    => \$opts{a},
+    'b'        => \$opts{b},
+    'help|?'   => \$opts{help},
+    'man'      => \$opts{man},
+);
+
+pod2usage(1) if $opts{help};
 
 if ( $opts{f} and $opts{t} ) {
     print "Please just use -f or -t not both at once\n";
@@ -131,7 +145,7 @@ for my $goodie (@goodies) {
                 }
             }
             else {
-                print 'The goodie ' 
+                print 'The goodie '
                     . $goodie
                     . ' gives back the following on the query "'
                     . $q_check . '":' . "\n";
@@ -141,7 +155,7 @@ for my $goodie (@goodies) {
             }
         }
         else {
-            print 'The goodie ' 
+            print 'The goodie '
                 . $goodie
                 . ' gave no result on "'
                 . $q_check . '"!' . "\n"
@@ -153,3 +167,42 @@ for my $goodie (@goodies) {
     }
 
 }
+
+__END__
+
+=head1 NAME
+
+goodie-test.pl - Test your DuckDuckGo Goodie Plugins
+
+=head1 Synopsis
+
+goodie-test.pl abc 'this or that or none'
+
+Options:
+   -f[ile] file         provide a file of queries to test
+   -t[est]              test the queries in queries.txt
+   -a[ll]               test all the goodies
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<-file> file
+
+provide a file of queries to test
+
+=item B<-test>
+
+test the queries in queries.txt
+
+=item B<-all>
+
+test all the Goodies
+
+=back
+
+=head1 DESCRIPTION
+
+B<This program> tests a DuckDuckGo Goodie Plugin against a query or a set of queries.
+
+
