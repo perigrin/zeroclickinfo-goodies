@@ -1,4 +1,4 @@
-package DDG::Goodies::Input;
+package DDG::ZCI::Input;
 use Moo;
 
 has query          => ( is => 'ro', required => 1 );

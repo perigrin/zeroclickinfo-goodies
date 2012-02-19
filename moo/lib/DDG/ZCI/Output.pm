@@ -1,4 +1,4 @@
-package DDG::Goodies::Output;
+package DDG::ZCI::Output;
 use Moo;
 
 has answer_results => ( is => 'rw' );

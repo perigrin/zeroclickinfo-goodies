@@ -1,4 +1,5 @@
-package DDG::Goodies::Plugin::ABC;
+package DDG::ZCI::Plugin::ABC;
+use DDG::ZCI::Plugin;
 
 sub handle {
     my ( $class, $input ) = @_;
@@ -9,7 +10,7 @@ sub handle {
     my @choices = split /\s+or\s+/, $input->query_check;
 
     if ( my @duck = grep { m/^duck/ or $_ eq 'ddg' } @choices ) {
-        return DDG::Goodies::Output->new(
+        return output(
             answer_results => "$duck[0] (not random)",
             answer_type    => 'moo:egg',
             is_memcached   => 1,
@@ -18,7 +19,7 @@ sub handle {
     }
 
     my $choice = int rand @choices;
-    return DDG::Goodies::Output->new(
+    return output(
         answer_results => "$choices[$choice] (random)",
         answer_type    => 'moo:egg',
         is_memcached   => 1,
